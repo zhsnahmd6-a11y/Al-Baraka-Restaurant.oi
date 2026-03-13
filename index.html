@@ -979,6 +979,10 @@
         <div class="success-sub" style="margin-top:12px; font-size:16px; color:#555; line-height:1.8;">
           ستصلك رسالة تأكيد عبر رقمك على الواتساب
         </div>
+        <button onclick="cancelOrder()" style="margin-top:24px; width:100%; background:#fff; color:#CC1F1F; border:2px solid #CC1F1F; border-radius:12px; padding:14px; font-size:16px; font-weight:800; cursor:pointer; font-family:'Tajawal',sans-serif;">
+          ❌ إلغاء الطلب
+        </button>
+        <p style="font-size:12px; color:#aaa; margin-top:8px;">سيتم إرسال إشعار إلغاء للمطعم</p>
       </div>
 
     </div>
@@ -1202,6 +1206,17 @@ async function cancelOrder() {
   document.getElementById('cartView').style.display = 'block';
   closeCart();
   alert('تم إرسال طلب الإلغاء للمطعم. سيتواصل معك أحد موظفينا قريباً.');
+}
+
+// ===== CANCEL ORDER =====
+async function cancelOrder() {
+  if (!confirm('هل أنت متأكد إنك عايز تلغي الطلب؟')) return;
+  const msg = `❌ <b>إلغاء طلب!</b>\n👤 ${lastOrderName}\n🕐 ${new Date().toLocaleString('ar-EG')}`;
+  sendTelegram(msg);
+  document.getElementById('successView').classList.remove('show');
+  document.getElementById('cartView').style.display = 'block';
+  closeCart();
+  alert('تم إرسال طلب الإلغاء للمطعم.');
 }
 
 // ===== SUBMIT ORDER =====
